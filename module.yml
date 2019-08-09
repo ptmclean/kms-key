@@ -24,18 +24,23 @@ Parameters:
     Description: 'Optional alias name (if not set, the stack name is used).'
     Type: String
     Default: ''
+  DeletionPolicy:
+    Description: 'Optional deletion policy (if not set then set to Retain)'
+    AllowedValues: ['Delete', 'Retain']
+    Type: String
+    Default: 'Retain'
 Conditions:
   HasAlertingModule: !Not [!Equals [!Ref AlertingModule, '']]
   HasAliasName: !Not [!Equals [!Ref AliasName, '']]
 Resources:
   Alias:
-    DeletionPolicy: Retain
+    DeletionPolicy: !Ref DeletionPolicy
     Type: 'AWS::KMS::Alias'
     Properties:
       AliasName: !If [HasAliasName, !Sub 'alias/${AliasName}', !Sub 'alias/${AWS::StackName}']
       TargetKeyId: !Ref Key
   Key:
-    DeletionPolicy: Retain
+    DeletionPolicy: !Ref DeletionPolicy
     Type: 'AWS::KMS::Key'
     Properties:
       KeyPolicy:

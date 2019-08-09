@@ -22,3 +22,14 @@ test.serial('with-alias-name', async t => {
     t.pass();
   }
 });
+
+test.serial('with-deletion-policy', async t => {
+  const stackName = cfntest.stackName();
+  try {
+    t.log(await cfntest.createStack(`${__dirname}/with-deletion-policy.yml`, stackName, {}));
+    // what could we test here?
+  } finally {
+    t.log(await cfntest.deleteStack(stackName));
+    t.pass();
+  }
+});

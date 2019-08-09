@@ -28,6 +28,7 @@ Resources:
       Parameters:
         AlertingModule: !GetAtt 'Alerting.Outputs.StackName' # optional
         AliasName: '' # optional
+        DeletionPolicy: '' # optional
       TemplateURL: './node_modules/@cfn-modules/kms-key/module.yml'
 ```
 
@@ -65,6 +66,13 @@ none
       <td></td>
       <td>no</td>
       <td></td>
+    </tr>
+    <tr>
+      <td>DeletionPolicy</td>
+      <td>Optional deletion policy (if not set then set to Retain)</td>
+      <td></td>
+      <td>no</td>
+      <td>Delete, Retain</td>
     </tr>
   </tbody>
 </table>
